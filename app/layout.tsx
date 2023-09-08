@@ -1,7 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-
+import Navbar from './(components)/Navbar'
+import { Sidebar } from '@/components/ui/sidebar'
+import Popup from './(components)/Popup'
+import { Separator } from "@/components/ui/separator"
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -16,7 +19,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navbar/>
+        <div className="grid grid-cols-5 gap-3">
+            <div className="hidden lg:block"><Sidebar/></div>
+            {children}
+        </div>
+        <Separator className="my-0.5 mt-[83%]" />
+        <div className='block lg:hidden'>
+          <Popup/>
+        </div>
+      </body>
     </html>
   )
 }
