@@ -1,10 +1,10 @@
 "use client"
 import React from 'react'
-import TeamSwitcher from "@/components/ui/team-switcher"
 import { UserNav } from "@/components/ui/user-nav"
 import { Search } from "@/components/ui/search"
 import { MainNav } from "@/components/ui/main-nav"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import Popup from './Popup'
 import {
     Avatar,
     AvatarFallback,
@@ -16,7 +16,17 @@ import { Button } from "@/components/ui/button"
 export default function Navbar() {
   const[isSearch,setSearch]=useState<boolean>(true);
   //const[isStr,setStr]=useState("block lg:hidden")
-  
+  const [asstatus, setAsstatus] = useState("user");
+  const [Tokent, setToken] = useState<string>('');
+  useEffect(() => {
+    const as: string | null = localStorage.getItem("as");
+    const access_tokenn: string | null = localStorage.getItem("access_tokenn");
+    if(as !== null && access_tokenn !== null){
+      setAsstatus(as);
+      setToken(access_tokenn)
+    }
+  })
+
   const assignSearch = (newValue:boolean) => {
     setSearch(newValue);
   };
@@ -25,19 +35,14 @@ export default function Navbar() {
     <div className="flex-col md:flex sticky top-0 backdrop-blur-sm">
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
-            <TeamSwitcher />
-            
-            <div className="ml-auto flex items-center space-x-4">
-                <div className={`${!isSearch ? "block lg:hidden":"hidden lg:block"}`}>
-                    <Search />
-                </div>
-                <div className={`${isSearch && "block lg:hidden"}`}>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full transition duration-1600 ease-in-out" onClick={() => assignSearch(!isSearch)}>
-                    <Avatar className="h-8 w-8">
-                    <AvatarImage src="/avatars/01.png" alt="@shadcn" />
-                    <AvatarFallback>S</AvatarFallback>
-                    </Avatar>
-                </Button>
+          <Avatar>
+            <AvatarImage src="https://raw.githubusercontent.com/captain0jay/Loomen/main/assets/Screenshot%20(38).png" alt="@shadcn" />
+            <AvatarFallback>...</AvatarFallback>
+          </Avatar>
+            <div className="ml-auto flex items-center space-x-3">
+            <div className='block lg:hidden'>
+              {Tokent!==null?
+                  <Popup/>:<div></div>}
                 </div>
               <UserNav />
             </div>

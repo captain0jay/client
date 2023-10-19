@@ -1,3 +1,4 @@
+"use client"
 import {
     Avatar,
     AvatarFallback,
@@ -14,9 +15,20 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
-  
-  
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
   export function UserNav() {
+    useEffect(()=>{
+      const a = 2;
+    })
+
+    const router = useRouter();
+    const deleteTokens = () =>{
+      localStorage.removeItem("access_tokenn");
+      localStorage.removeItem("github_id");
+      localStorage.removeItem("client_id");
+      router.push('/login')
+    }
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -37,23 +49,7 @@ import {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              Profile
-              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Billing
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Settings
-              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>New Team</DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={deleteTokens}>
             Log out
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>

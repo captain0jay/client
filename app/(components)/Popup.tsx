@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 export default function Popup() {
   return (
     <Drawer.Root>
-      <Drawer.Trigger asChild className='ml-[42%] inline-block'>
+      <Drawer.Trigger asChild className=' inline-block'>
         <Button variant="link">Sidebar</Button>
       </Drawer.Trigger>
       <Drawer.Portal>
